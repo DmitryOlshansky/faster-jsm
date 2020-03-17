@@ -4,8 +4,6 @@
 	],
 	"copyright": "Copyright © 2020, Dmitry Olshansky",
 	"dependencies": {
-		"autowrap": "~>0.5.1",
-		"unit-threaded:runner" : "0.10.7"
 	},
 	"targetType": "executable",
 	"description": "JSM is an obscure but powerful machine learning method, faster-jsm is an attempt to achieve fastest version of JSM and provide bindings for most data science languages",
