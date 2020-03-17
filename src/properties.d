@@ -9,7 +9,7 @@ struct SmallEnumProperty(uint size) {
         alias Value = ubyte;
     else static if(size < 16)
         alias Value = ushort;
-    else static if(size < 32
+    else static if(size < 32)
         alias Value = uint;
     else
         alias Value = ulong;
