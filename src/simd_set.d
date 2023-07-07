@@ -67,11 +67,17 @@ struct SimdBitSet {
         return Range(this);
     }
 
+    bool isSomeZero(ubyte16 m) {
+        return m[0] == true || m[1] == true || m[2] == true || m[3] == true || m[4] == true || m[5] == true || m[6] == true || m[7] == true ||
+            m[8] == true || m[9] == true || m[10] == true || m[11] == true || m[12] == true || m[13] == true || m[14] == true || m[15] == true;
+    }
+
     bool opIndex(size_t idx) {
         size_t offset = idx % SIMD_BITS;
         ubyte16 mask;
         mask[offset / 8] |= 1<<(offset % 8);
-        return (blocks[idx / SIMD_BITS] & mask) == mask;
+        auto m = blocks[idx / SIMD_BITS] & mask;
+        return isSomeZero(m);
     }
 
     ref opIndexAssign(bool value, size_t idx) {
@@ -111,7 +117,8 @@ struct SimdBitSet {
             return (blocks[0] & mask) == (other.blocks[0] & mask);
         else {
             auto n = top / SIMD_BITS;
-            if (blocks[0..n] != other.blocks[0..n]) return false;
+            auto m = blocks[0..n] != other.blocks[0..n];
+            if (isSomeZero(m)) return false;
             return offset == 0 || (blocks[n] & mask) == (other.blocks[n] & mask);
         }
     }
